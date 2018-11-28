@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+{% load static %}
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,10 +9,8 @@
         <meta name="keywords" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
         <meta name="renderer" content="webkit">
-        <meta http-equiv="Cache-Control" content="no-siteapp" />
-        <link rel="icon" type="image/png" href="/theme/default/images/favicon.png">
-		<link href="css/amazeui.min.css" rel="stylesheet" type="text/css" />
-		<link href="css/style.css" rel="stylesheet" type="text/css" />
+		<link href="{% static 'css/amazeui.min.css' %}" rel="stylesheet" type="text/css" />
+		<link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css" />
 		
 	</head>
 	<body>
@@ -25,7 +24,7 @@
   	            <a href="" class="">管理收货地址</a>
             </h1>
             <div class="am-header-right am-header-nav">
-				<a href="address.html" class="">
+				<a href="{% url '用户:添加收货地址' %}" class="">
 					<i class="am-icon-plus"></i>
 				</a>
 			</div>
@@ -40,7 +39,7 @@
 	    	    	<label class="am-radio am-warning">
                        <input type="radio" name="radio3" value="" data-am-ucheck checked> 设为默认
                     </label>
-                    <a href=""><img src="images/bj.png" width="18" />&nbsp;编辑</a>
+                    <a href=""><img src="{% static 'images/bj.png' %}" width="18" />&nbsp;编辑</a>
                     <a href="">删除</a>
 	    	    </div>
 	    	</li>
@@ -52,7 +51,7 @@
 	    	    	<label class="am-radio am-warning">
                        <input type="radio" name="radio3" value="" data-am-ucheck > 设为默认
                     </label>
-                    <a href=""><img src="images/bj.png" width="18" />&nbsp;编辑</a>
+                    <a href=""><img src="{% static 'images/bj.png' %}" width="18" />&nbsp;编辑</a>
                     <a href="">删除</a>
 	    	    </div>
 	    	</li>
@@ -64,7 +63,7 @@
 	    	    	<label class="am-radio am-warning">
                        <input type="radio" name="radio3" value="" data-am-ucheck > 设为默认
                     </label>
-                    <a href=""><img src="images/bj.png" width="18" />&nbsp;编辑</a>
+                    <a href=""><img src="{% static 'images/bj.png' %}" width="18" />&nbsp;编辑</a>
                     <a href="">删除</a>
 	    	    </div>
 	    	</li>
@@ -76,12 +75,12 @@
 	    	    	<label class="am-radio am-warning">
                        <input type="radio" name="radio3" value="" data-am-ucheck > 设为默认
                     </label>
-                    <a href=""><img src="images/bj.png" width="18" />&nbsp;编辑</a>
+                    <a href=""><img src="{% static 'images/bj.png' %}" width="18" />&nbsp;编辑</a>
                     <a href="">删除</a>
 	    	    </div>
 	    	</li>
 	    </ul>
-<script src="js/jquery.min.js"></script>
-<script src="js/amazeui.min.js"></script> 
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script src="{% static 'js/amazeui.min.js' %}"></script>
 	</body>
 </html>

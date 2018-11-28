@@ -9,16 +9,16 @@
         <ul class="list-pro" style="margin-top: 20px">
             {% for result in page %}
                 <li>
-                    <a href="{% url '商城:分类' result.object.pk 1 %}"><img
-                            src="{{ MEDIA_URL }}{{ result.object.logo }}" class="list-pic1"/></a>
+                    <a href="{% url '商城:分类' result.object.pk 0 %}"><img
+                            src="{{ MEDIA_URL }}{{ result.object.sku_logo }}" class="list-pic1"/></a>
                     <div class="shop-list-mid" style="width: 65%;">
                         <div class="tit">
-                            <a href="{% url '商城:分类' result.object.pk 1  %}">
-                                {{ result.object.goods_spu.spu_name }}{{ result.object.sku_name }}
+                            <a href="{% url '商城:分类' result.object.pk 0  %}">
+                                {{ result.object.shop_spu.spu_name }}{{ result.object.sku_name }}
                             </a>
                         </div>
-                        <div class="am-gallery-desc">￥{{ result.object.price }}</div>
-                        <p>销量：{{ result.object.sale_num }}件</p>
+                        <div class="am-gallery-desc">￥{{ result.object.sku_price }}</div>
+                        <p>销量：{{ result.object.sku_sale }}件</p>
                     </div>
                 </li>
                 {% empty %}

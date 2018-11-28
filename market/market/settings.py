@@ -13,7 +13,11 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+import sys
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+#  将app路径添加到查找列表
+sys.path.insert(0,os.path.join(BASE_DIR,'apps'))
 
 
 # Quick-start development settings - unsuitable for production
@@ -25,7 +29,7 @@ SECRET_KEY = '7^(cu=yr)wu2s6wo5%5q^94d(*(0pgd09!hm$_jf%hyvls&wjh'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -37,7 +41,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'user.apps.UserConfig',
+    'apps.user.apps.UserConfig',
+    'apps.shop.apps.ShopConfig',
+    'ckeditor',  # 添加ckeditor富文本编辑器
+    'ckeditor_uploader',  # 添加ckeditor富文本编辑器文件上传部件
+    'haystack',  # 全文检索框架
+    'apps.car.apps.CarConfig',
 ]
 
 MIDDLEWARE = [
@@ -64,6 +73,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.media',
             ],
         },
     },
@@ -77,8 +87,12 @@ WSGI_APPLICATION = 'market.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        # 'ENGINE': 'django.db.backends.sqlite3',
+        # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'OPTIONS': {
+            'read_default_file': os.path.join(BASE_DIR, "my.cnf")
+        }
     }
 }
 
@@ -122,7 +136,73 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
-
+# 静态根设置
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
+# 为了使用 django-redis , 你应该将你的 django cache setting 改成这样:
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379/1",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        }
+    }
+}
+
+# Django 默认可以使用任何 cache backend 作为 session backend,
+# 将 django-redis 作为 session 储存后端不用安装任何额外的 backend
+# 配置session的存储引擎
+# 存储在缓存中：存储在本机内存中，如果丢失则不能找回，比数据库的方式读写更快。
+SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+# 存储在数据库中，如下设置可以写，也可以不写，这是默认存储方式。
+# SESSION_ENGINE='django.contrib.sessions.backends.db'
+# 混合存储：优先从本机内存中存取，如果没有则从数据库中存取。
+# SESSION_ENGINE='django.contrib.sessions.backends.cached_db'
+SESSION_CACHE_ALIAS = "default"
+
+# 在settings文件里，定义一个变量叫MEDIA_URL
+MEDIA_URL = "/static/media/"
+# 配置该URL对应的物理目录存储地址
+MEDIA_ROOT = os.path.join(BASE_DIR, 'static/media')
+
+
+# 配置阿里云文件
+ACCESS_KEY_ID = "LTAI2qSiJdWP87em"
+ACCESS_KEY_SECRET = "FzORQ587PgGBoOAdmxzCjaxQi8klUi"
+
+
+
+# 设置静态文件根目录  上线的时候使用
+# STATIC_ROOT = os.path.join(BASE_DIR, "static")
+# 设置ckeditor的上传目录 这个目录是相对目录，相对与 MEDIA_ROOT
+CKEDITOR_UPLOAD_PATH = "uploads/"
+
+# 编辑器样式配置
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'full',
+    },
+}
+
+
+
+
+# 全文检索框架的配置
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        # 配置搜索引擎
+        # 'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
+
+        # 中文分词 使用jieba的whoosh引擎
+        'ENGINE': 'haystack.backends.whoosh_cn_backend.WhooshEngine',
+
+        # 配置索引文件目录
+        'PATH': os.path.join(BASE_DIR, 'whoosh_index'),
+    },
+}
+#当添加、修改、删除数据时，自动生成索引
+HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
+
+

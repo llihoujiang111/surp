@@ -1,19 +1,6 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<title>超市</title>
-        <meta name="description" content="">
-        <meta name="keywords" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-        <meta name="renderer" content="webkit">
-        <meta http-equiv="Cache-Control" content="no-siteapp" />
-        <link rel="icon" type="image/png" href="/theme/default/images/favicon.png">
-		<link href="css/amazeui.min.css" rel="stylesheet" type="text/css" />
-		<link href="css/style.css" rel="stylesheet" type="text/css" />
-		<link href="css/check.css" rel="stylesheet" type="text/css" />
-	</head>
+{% extends 'farther/shop_farther.html' %}
+{% block body %}
+    {% load static %}
 	<body>
 		<header data-am-widget="header" class="am-header am-header-default sq-head ">
 			<div class="am-header-left am-header-nav">
@@ -39,7 +26,7 @@
 			<span class="c-comment-num">支付宝支付</span>
 			<span class="c-comment-suc">待付款</span>
 		</div>
-		
+
 		<div class="c-comment-list" style="border: 0;">
 			<a href="orderdetail.html">
 			<p>应付金额：￥63.0     实付金额：<span>￥63.0</span></p>
@@ -59,7 +46,7 @@
 			<span class="c-comment-num">微信支付</span>
 			<span class="c-comment-suc">待收货</span>
 		</div>
-		
+
 		<div class="c-comment-list" style="border: 0;">
 			<a href="orderdetail.html">
 			<p>应付金额：￥63.0     实付金额：<span>￥63.0</span> <b>省</b><span>￥2.5</span> </p>
@@ -79,7 +66,7 @@
 			<span class="c-comment-num">余额支付</span>
 			<span class="c-comment-suc">已完成</span>
 		</div>
-		
+
 		<div class="c-comment-list" style="border: 0;">
 			<a href="orderdetail.html">
 			<p>应付金额：￥63.0     实付金额：<span>￥63.0</span> <b>省</b><span>￥2.5</span> </p>
@@ -99,7 +86,7 @@
 			<span class="c-comment-num">余额支付</span>
 			<span class="c-comment-suc">待发货</span>
 		</div>
-		
+
 		<div class="c-comment-list" style="border: 0;">
 			<a href="orderdetail.html">
 			<p>应付金额：￥63.0     实付金额：<span>￥63.0</span> <b>省</b><span>￥2.5</span> </p>
@@ -117,7 +104,7 @@
 			<span class="c-comment-num">余额支付</span>
 			<span class="c-comment-suc"> 待评价</span>
 		</div>
-		
+
 		<div class="c-comment-list" style="border: 0;">
 			<a href="orderdetail.html">
 			<p>应付金额：￥63.0     实付金额：<span>￥63.0</span> <b>省</b><span>￥2.5</span> </p>
@@ -129,44 +116,43 @@
 		<div class="c-com-btn">
 			<a href="" class="oncepay">立即评价</a>
 		</div>
-		
+
 		  <!--底部-->
  <div style="height:55px;"></div>
  <div data-am-widget="navbar" class="am-navbar am-cf am-navbar-default sq-foot am-no-layout" id="">
-      <ul class="am-navbar-nav am-cf am-avg-sm-5">   
-          <li>
-            <a href="index.html" class="">
-                <span class="am-icon-home"></span>
-                <span class="am-navbar-label">首页</span>
-            </a>
-          </li>
-          <li>
-            <a href="message.html" class="">
-                <span class="am-icon-comments"></span>
-                <span class="am-navbar-label">动态</span>
-            </a>
-          </li>
-          <li>
-            <a href="shopcart.html" class="">
-                <span class="am-icon-shopping-cart"></span>
-                <span class="am-navbar-label">购物车</span>
-            </a>
-          </li>
-          <li>
-            <a href="allorder.html" class="curr">
-                <span class="am-icon-file-text"></span>
-                <span class="am-navbar-label">订单</span>
-            </a>
-          </li>
- 
-          <li>
-            <a href="member.html" class="">
-                <span class="am-icon-user"></span>
-                <span class="am-navbar-label">我的</span>
-            </a>
-          </li>
+      <ul class="am-navbar-nav am-cf am-avg-sm-5">
+            <li>
+                <a href="{% url '商城:首页' %}" class="">
+                    <span class="am-icon-home"></span>
+                    <span class="am-navbar-label">首页</span>
+                </a>
+            </li>
+            <li>
+                <a href="message.html" class="">
+                    <span class="am-icon-comments"></span>
+                    <span class="am-navbar-label">动态</span>
+                </a>
+            </li>
+            <li>
+                <a href="{% url '购物:购物车' %}" class="">
+                    <span class="am-icon-shopping-cart"></span>
+                    <span class="am-navbar-label">购物车</span>
+                </a>
+            </li>
+            <li>
+                <a href="{% url '商城:订单' %}" class="">
+                    <span class="am-icon-file-text"></span>
+                    <span class="am-navbar-label">订单</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="{% url '用户:个人中心' %}" class="curr">
+                    <span class="am-icon-user"></span>
+                    <span class="am-navbar-label">我的</span>
+                </a>
+            </li>
       </ul>
 </div>
- 
 	</body>
-</html>
+{% endblock %}

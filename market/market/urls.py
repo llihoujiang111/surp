@@ -18,5 +18,13 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+
+    # 全文搜索框架
+    url(r'^search/', include('haystack.urls')),
+
+    # 上传部件自动调用的上传地址
+    url(r'^ckeditor/', include("ckeditor_uploader.urls")),
     url(r'^user/', include('user.urls',namespace='用户')),
+    url(r'^shop/', include('shop.urls',namespace='商城')),
+    url(r'^car/', include('car.urls',namespace='购物')),
 ]

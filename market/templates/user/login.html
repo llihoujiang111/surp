@@ -1,19 +1,6 @@
-{% load static %}
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<title>超市</title>
-        <meta name="description" content="">
-        <meta name="keywords" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-        <meta name="renderer" content="webkit">
-		<link href="{% static 'css/amazeui.min.css' %}" rel="stylesheet" type="text/css" />
-		<link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css" />
-		<script src="{% static 'js/jquery-1.10.2.min.js' %}"></script>
-		<script src="{% static 'js/time.js' %}"></script>
-	</head>
+{% extends 'farther/user_father.html' %}
+{% block body %}
+    {% load static %}
 	<body>
 		<header data-am-widget="header" class="am-header am-header-default sq-head ">
 			<div class="am-header-left am-header-nav">
@@ -30,12 +17,17 @@
 	    	<img src="images/logo.png" />
 	    </div>-->
 	    <div style="height: 3rem;"></div>
-	    <input type="text" name="mobile" id="mobile" placeholder="请输入用户名/手机号" class="login-name">
-	    <input type="password" name="password" id="password" placeholder="请输入密码" class="login-password">
-	    <input type="button" class="login-btn" value="我要登录">
+        <form action="" method="post">
+            {% csrf_token %}
+            <input type="text" name="username" id="mobile" placeholder="请输入用户名/手机号" class="login-name" value="{{ hq.username }}">
+            <input type="password" name="password1" id="password" placeholder="请输入密码" class="login-password">
+            <p class="am-text-success">{{ err }}</p>
+            <input name="wydl" type="submit" class="login-btn" value="我要登录">
+        </form>
+
 	    <div class="agree">
-	    	<a href="reg.html">免费注册</a>
-	    	<a href="forgetpassword.html" class="forget">忘记密码？</a>
+	    	<a href="{% url '用户:注册' %}">免费注册</a>
+	    	<a href="{% url '用户:忘记' %}" class="forget">忘记密码？</a>
 	    </div>
 	    <div class="line"></div>
 	    <div class="line-text">第三方账号登录</div>
@@ -45,4 +37,4 @@
 	    	<li><a href=""><img src="{% static 'images/sinalog.png' %}"/></a></li>
 	    </ul>
 	</body>
-</html>
+{% endblock %}

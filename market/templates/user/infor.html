@@ -1,84 +1,91 @@
-<!DOCTYPE html>
-{% load static %}
-<html>
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<title>超市</title>
-        <meta name="description" content="">
-        <meta name="keywords" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-        <meta name="renderer" content="webkit">
-		<link href="{% static 'css/amazeui.min.css' %}" rel="stylesheet" type="text/css" />
-		<link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css" />
-		<link href="{% static 'css/check.css' %}" rel="stylesheet" type="text/css" />
-	</head>
-	<body>
-		<header data-am-widget="header" class="am-header am-header-default sq-head ">
-			<div class="am-header-left am-header-nav">
-				<a href="javascript:history.back()" class="">
-					<i class="am-icon-chevron-left"></i>
-				</a>
-			</div>
-			<h1 class="am-header-title">
-  	            <a href="" class="">个人资料</a>
-            </h1>
-	    </header>
-	    <div style="height: 49px;"></div>
-	    <ul class="safty1">
-	    	<li>
-	    		<a href="">
-	    			<i style="margin-top: 25px;">头像</i>
-	    			<div class="infor-pic">
-	    				<img src="{% static 'images/infortx.png' %}" />
-	    			</div>
-	    		</a>
-	    	</li>
-	    	<li>
-	    		<a href="">
-	    			<i>昵称</i>
-	    			<input class="infor-tele" placeholder="默契"/>	    			
-	    		</a>
-	    	</li>
-	    	<li>
-	    		<a href="">
-	    			<i>性别</i>
-	    			<i class="infor-tele">
-	    				<label class="am-radio-inline">
-				          <input type="radio" name="radio10" checked="checked" value="1" data-am-ucheck>男
-				        </label>
-				        <label class="am-radio-inline">
-				          <input type="radio" name="radio10" value="1" data-am-ucheck>女
-				        </label>
-	    			</i>
-	    		</a>
-	    	</li><li>
-	    		<a href="">
-	    			<i>生日</i>
-                    <input class="infor-tele" placeholder="出生日期"/>
-	    		</a>
-	    	</li>
-	    </ul>
-	    <div style="height: 10px; background: #efefef;"></div>
-	     <ul class="safty1">
-	    	<li>
-	    			<i>学校</i>
-	    			<input class="infor-tele" placeholder="就读于哪个学校"/>	    			
-	    	</li>
-	    	<li>
-	    			<i>位置</i>
-	    			<input class="infor-tele" placeholder="详细地址"/>	    			
-	    	</li>
-	    	<li>
-	    			<i>故乡</i>
-                    <input class="infor-tele" placeholder="来自哪里"/>
-	    	</li>
-	    	<li>
-	    			<i>手机</i>
-                    <input class="infor-tele" placeholder="13012345678"/>
-	    	</li>
-	    </ul>
-	    <script src="{% static 'js/jquery.min.js' %}"></script>
-        <script src="{% static 'js/amazeui.min.js' %}"></script>
-	</body>
-</html>
+{% extends 'farther/shop_farther.html' %}
+
+{% block body %}
+    {% load static %}
+    <body>
+    <header data-am-widget="header" class="am-header am-header-default sq-head ">
+        <div class="am-header-left am-header-nav">
+            <a href="javascript:history.back()" class="">
+                <i class="am-icon-chevron-left"></i>
+            </a>
+        </div>
+        <h1 class="am-header-title">
+            <a href="" class="">个人资料</a>
+        </h1>
+    </header>
+    <div style="height: 49px;"></div>
+
+
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <ul class="safty1">
+            <li>
+                <i style="margin-top: 25px;">头像</i>
+                <div class="infor-pic">
+                    <img src="{{ MEDIA_URL }}{{ aaa.get.user_img }}" alt="">
+                </div>
+                <div class="am-form-group am-form-file">
+                    <input class="am-icon-cloud-uploadam-btn am-btn-danger am-btn-sm" type="submit" value="选择要上传的头像">
+                    <input name="user_img" id="doc-form-file" type="file" multiple>
+                </div>
+                <input type="hidden" name="user_id" value="{{ xr.pk }}{{ aaa.get.pk }}">
+            </li>
+            <li>
+                <i>昵称</i>
+                <input class="infor-tele" name="my_name" placeholder="{{ xr.username }}" value="{{ aaa.get.my_name }}"/>
+            </li>
+            <p class="am-text-success">{{ err.my_name.0 }}</p>
+            <li>
+                <i>性别</i>
+                <i class="infor-tele">
+                    <label class="am-radio-inline">
+                        <input type="radio" name="sex" {% if aaa.get.sex == 1 %}
+                               checked="checked"
+                        {% endif %} value="1" data-am-ucheck>男
+                    </label>
+                    <label class="am-radio-inline">
+                        <input type="radio" name="sex" {% if aaa.get.sex == 2 %}
+                               checked="checked"
+                        {% endif %} value="2" data-am-ucheck>女
+                    </label>
+                    <p class="am-text-success">{{ err.sex.0 }}</p>
+                </i>
+            </li>
+            <li>
+                <i>生日</i>
+                <input type="date" class="infor-tele" name="my_data" placeholder="出生日期"
+                       value="{{ aaa.get.my_data | default:"Y-m-d" }}"/>
+            </li>
+            <p class="am-text-success">{{ err.my_data.0 }}</p>
+        </ul>
+        <div style="height: 10px; background: #efefef;"></div>
+        <ul class="safty1">
+            <li>
+                <i>学校</i>
+                <input class="infor-tele" name="my_school" placeholder="就读于哪个学校" value="{{ aaa.get.my_school }}"/>
+            </li>
+            <p class="am-text-success">{{ err.my_school.0 }}</p>
+            <li>
+                <i>位置</i>
+                <input class="infor-tele" name="my_address" placeholder="详细地址" value="{{ aaa.get.my_address }}"/>
+            </li>
+            <p class="am-text-success">{{ err.my_address.0 }}</p>
+            <li>
+                <i>故乡</i>
+                <input class="infor-tele" name="my_from" placeholder="来自哪里" value="{{ aaa.get.my_from }}"/>
+            </li>
+            <p class="am-text-success">{{ err.my_from.0 }}</p>
+            <li>
+                <i>手机</i>
+                <input class="infor-tele" name="my_tel" placeholder="{{ xr.username }}" value="{{ aaa.get.my_tel }}"/>
+            </li>
+            <p class="am-text-success">{{ err.my_tel.0 }}</p>
+        </ul>
+        <input class="am-btn am-btn-warning am-round am-text-default" type="submit" name="tj" value="提交">
+
+    </form>
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/amazeui.min.js' %}"></script>
+    </body>
+{% endblock %}
+
