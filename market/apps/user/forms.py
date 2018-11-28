@@ -107,7 +107,13 @@ class Addressform(forms.ModelForm):
             },
         }
 
-        # def clean(self):
+    def clean(self):
+        # 验证如果数据库里地址已经超过6六表报错
+        user=self.data.get("userid")
+        count = User_Address.objects.filter(user_id=user,is_delete=False).count()
+        if count >= 6:
+            raise forms.ValidationError( "收货地址最多只能保存6条")
+        return self.cleaned_data
 
 
 

@@ -16,8 +16,11 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 
+from shop.views import index
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^$', index),
 
     # 全文搜索框架
     url(r'^search/', include('haystack.urls')),

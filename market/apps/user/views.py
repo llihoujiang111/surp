@@ -300,8 +300,8 @@ def address_show(request):
 def address(request):
     userid=request.session.get('id')
     if request.method=='POST':
-        data=request.POST
-        # data["userid"]=userid
+        data=request.POST.dict()
+        data["userid"]=userid
         re=Addressform(data)
         if re.is_valid():
             cdata=re.cleaned_data
@@ -309,7 +309,7 @@ def address(request):
             return redirect('用户:收货地址')
         else:
             context={
-                'err':re.errors
+                'form':re
             }
             return render(request, 'user/address.html',context)
     else:
