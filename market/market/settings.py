@@ -27,7 +27,7 @@ sys.path.insert(0,os.path.join(BASE_DIR,'apps'))
 SECRET_KEY = '7^(cu=yr)wu2s6wo5%5q^94d(*(0pgd09!hm$_jf%hyvls&wjh'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -137,9 +137,11 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 # 静态根设置
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static')
-]
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, 'static')
+# ]
+
+STATIC_ROOT = os.path.join(BASE_DIR,'static')
 # 为了使用 django-redis , 你应该将你的 django cache setting 改成这样:
 CACHES = {
     "default": {
