@@ -1,0 +1,77 @@
+{% extends 'farther/shop_farther.html' %}
+
+{% block headjs %}
+    {% load static %}
+<script src="{% static 'addjs/common.js' %}"></script>
+<script src="{% static 'addjs/Popt.js' %}"></script>
+<script src="{% static 'addjs/cityJson.js' %}"></script>
+<script src="{% static 'addjs/citySet.js' %}"></script>
+
+<style type="text/css">
+._citys {width:100%; height:100%;display: inline-block; position: relative;}
+._citys span {color: #56b4f8; height: 15px; width: 15px; line-height: 15px; text-align: center; border-radius: 3px; position: absolute; right: 1em; top: 10px; border: 1px solid #56b4f8; cursor: pointer;}
+._citys0 {width: 100%; height: 34px; display: inline-block; border-bottom: 2px solid #56b4f8; padding: 0; margin: 0;}
+._citys0 li {float:left; height:34px;line-height: 34px;overflow:hidden; font-size: 15px; color: #888; width: 80px; text-align: center; cursor: pointer; }
+.citySel {background-color: #56b4f8; color: #fff !important;}
+._citys1 {width: 100%;height:80%; display: inline-block; padding: 10px 0; overflow: auto;}
+._citys1 a {height: 35px; display: block; color: #666; padding-left: 6px; margin-top: 3px; line-height: 35px; cursor: pointer; font-size: 13px; overflow: hidden;}
+._citys1 a:hover { color: #fff; background-color: #56b4f8;}
+.ui-content{border: 1px solid #EDEDED;}
+li{list-style-type: none;}
+._citys{background: #fff}
+</style>
+{% endblock %}
+{% block body %}
+
+	<body>
+		<header data-am-widget="header" class="am-header am-header-default sq-head ">
+			<div class="am-header-left am-header-nav">
+				<a href="javascript:history.back()" class="">
+					<i class="am-icon-chevron-left"></i>
+				</a>
+
+			</div>
+
+			<h1 class="am-header-title">
+  	            <a href="" class="">新增收货地址</a>
+            </h1>
+	    </header>
+        <form action="" method="post">
+                {% csrf_token %}
+            <input type="hidden" name="user" value="{{ id }}">
+	    <div style="height: 60px;"></div>
+	    <ul class="address">
+	    	<li>
+	    		<span id="city" style="width:30rem;padding-left:5px;">请选则收货地址</span>
+	    	</li>
+            <p class="am-text-danger">{{ form.errors.hcity.0 }}</p>
+	    	<li><input name="add_detailed" type="text" class="add-input" placeholder="你在哪" /></li>
+            <p class="am-text-danger">{{ form.errors.add_detailed.0 }}</p>
+	    	<li><input name="add_name" type="text" class="add-input" placeholder="收货人" /></li>
+            <p class="am-text-danger">{{ form.errors.add_name.0 }}</p>
+	    	<li><input name="add_tel" type="text" class="add-input" placeholder="13000000000" /></li>
+            <p class="am-text-danger">{{ form.errors.add_tel.0 }}</p>
+	    </ul>
+	    <div class="moren">
+	    	<label class="am-checkbox am-warning">
+                 <input type="checkbox" checked="checked" name="isdefault"  data-am-ucheck checked>设为默认
+            </label>
+
+	    </div>
+        <p class="am-text-danger">{{ form.non_field_errors.0 }}</p>
+	    <input type="submit" name="tj" class="login-btn" value="确认提交">
+        </form>
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script src="{% static 'js/amazeui.min.js' %}"></script>
+	</body>
+{% endblock %}
+
+{% block footjs %}
+<script type="text/javascript">
+		$("#city").click(function (e) {
+			SelCity(this,e);
+			console.log(this);
+		});
+	</script>
+{% endblock %}
+
